@@ -9,7 +9,7 @@ $mysql_passwd = "";
 //----------------------------------------------------------------
 
 //CREA LA SIGUIENTE BASE DE DATOS EN MYSQL
-$mysql_bd = "memoria";
+$mysql_bd = "travelfly";
 
 $enlace = mysqli_connect($mysql_host, $mysql_usuario, $mysql_passwd, $mysql_bd);
 
