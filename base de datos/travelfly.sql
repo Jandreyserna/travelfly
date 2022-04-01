@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-03-2022 a las 14:37:26
+-- Tiempo de generación: 01-04-2022 a las 07:12:33
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -24,39 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `data-user`
---
-
-CREATE TABLE `data-user` (
-  `IdUser` int(9) NOT NULL,
-  `Nombre` int(30) NOT NULL,
-  `Apellido` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `Telefono` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
-  `DNI` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
-  `Fecha_Nacimiento` date NOT NULL,
-  `Genero` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
-  `Lugar_Nacimiento` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `DirFacturacion` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `Correo` varchar(40) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `estado`
 --
 
 CREATE TABLE `estado` (
   `id` int(11) NOT NULL,
-  `ubicacionpaisid` int(11) DEFAULT NULL,
-  `estadonombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `IdPais` int(11) DEFAULT NULL,
+  `estadonombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `estado`
 --
 
-INSERT INTO `estado` (`id`, `ubicacionpaisid`, `estadonombre`) VALUES
+INSERT INTO `estado` (`id`, `IdPais`, `estadonombre`) VALUES
 (1, 3, 'Azerbaijan'),
 (2, 3, 'Nargorni Karabakh'),
 (3, 3, 'Nakhichevanskaya Region'),
@@ -88,7 +69,7 @@ INSERT INTO `estado` (`id`, `ubicacionpaisid`, `estadonombre`) VALUES
 (29, 21, 'Ajaria'),
 (30, 21, 'Georgia'),
 (31, 21, 'South Ossetia'),
-(32, 23, 'Al QÄhira'),
+(32, 23, 'Al QÄ hira'),
 (33, 23, 'Aswan'),
 (34, 23, 'Asyut'),
 (35, 23, 'Beni Suef'),
@@ -931,7 +912,7 @@ INSERT INTO `estado` (`id`, `ubicacionpaisid`, `estadonombre`) VALUES
 (877, 9, 'Limburg'),
 (878, 9, 'Vlaams Brabant'),
 (879, 9, 'Antwerpen'),
-(880, 9, 'LiÄge'),
+(880, 9, 'LiÄ ge'),
 (881, 9, 'Namur'),
 (882, 9, 'Hainaut'),
 (883, 9, 'Luxembourg'),
@@ -2058,13 +2039,33 @@ INSERT INTO `estado` (`id`, `ubicacionpaisid`, `estadonombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `genero`
+--
+
+CREATE TABLE `genero` (
+  `id_genero` int(10) NOT NULL,
+  `tipo_genero` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `genero`
+--
+
+INSERT INTO `genero` (`id_genero`, `tipo_genero`) VALUES
+(1, 'Hombre'),
+(2, 'Mujer'),
+(3, 'Sin especificar');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `pais`
 --
 
 CREATE TABLE `pais` (
   `id` int(11) NOT NULL,
-  `paisnombre` varchar(250) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `paisnombre` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `pais`
@@ -2293,28 +2294,47 @@ INSERT INTO `pais` (`id`, `paisnombre`) VALUES
 --
 
 CREATE TABLE `usuario` (
-  `IdUser` int(9) NOT NULL,
-  `Tipo` varchar(15) COLLATE utf8_spanish2_ci NOT NULL DEFAULT 'cliente',
-  `Contraseña` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `Usuario` varchar(30) COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `id_usuario` int(10) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `apellido` varchar(30) NOT NULL,
+  `documento` varchar(10) NOT NULL,
+  `celular` varchar(10) NOT NULL,
+  `fechaNacimiento` date NOT NULL,
+  `id_genero` int(10) NOT NULL,
+  `pais` varchar(30) NOT NULL,
+  `estado` varchar(30) NOT NULL,
+  `ciudad` varchar(30) DEFAULT NULL,
+  `direccion` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `user` varchar(30) NOT NULL,
+  `pass` varchar(30) NOT NULL,
+  `confirmPass` varchar(30) DEFAULT NULL,
+  `foto` longblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `documento`, `celular`, `fechaNacimiento`, `id_genero`, `pais`, `estado`, `ciudad`, `direccion`, `email`, `user`, `pass`, `confirmPass`, `foto`) VALUES
+(1, 'jandrey Steven', 'Serna Restrepo', '1088036722', '3153460515', '2022-04-01', 1, '82', '1717', NULL, 'sede Dosquebradas', 'jandreyserna@gmail.com', 'urbano', '123', '123', '');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `data-user`
---
-ALTER TABLE `data-user`
-  ADD KEY `relacion-usuario` (`IdUser`);
-
---
 -- Indices de la tabla `estado`
 --
 ALTER TABLE `estado`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_4786469191104EC2` (`ubicacionpaisid`);
+  ADD KEY `IDX_4786469191104EC2` (`IdPais`);
+
+--
+-- Indices de la tabla `genero`
+--
+ALTER TABLE `genero`
+  ADD PRIMARY KEY (`id_genero`);
 
 --
 -- Indices de la tabla `pais`
@@ -2326,7 +2346,8 @@ ALTER TABLE `pais`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`IdUser`);
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `id_genero` (`id_genero`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -2339,6 +2360,12 @@ ALTER TABLE `estado`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2202;
 
 --
+-- AUTO_INCREMENT de la tabla `genero`
+--
+ALTER TABLE `genero`
+  MODIFY `id_genero` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `pais`
 --
 ALTER TABLE `pais`
@@ -2348,7 +2375,17 @@ ALTER TABLE `pais`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `IdUser` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_genero`) REFERENCES `genero` (`id_genero`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
